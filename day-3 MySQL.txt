@@ -1,0 +1,220 @@
+1st database
+
+ create table student
+    -> (sno int,sname varchar(20),marks int,city varchar(20),mobile int,gender varchar(20));
+
+mysql> insert into student values(1,'vani',99,'hyd',863909376,'female');
+Query OK, 1 row affected (0.00 sec)
+.
+.
+.
+.
+.
+.
+
+mysql> select * from student;
++------+----------+-------+------------+-----------+--------+
+| sno  | sname    | marks | city       | mobile    | gender |
++------+----------+-------+------------+-----------+--------+
+|    1 | vani     |    99 | hyd        | 863909376 | female |
+|    2 | teju     |    98 | warangal   | 863901351 | female |
+|    3 | sahithi  |    97 | jangaon    | 901496714 | female |
+|    4 | navya    |    96 | ap         | 901496789 | female |
+|    5 | sush     |    97 | nalgonda   | 862496789 | female |
+|    6 | john     |   100 | hyd        | 862499789 | male   |
+|    7 | mnm      |    60 | bglr       | 939852789 | male   |
+|    8 | vishal   |    30 | rangareddy | 901496711 | male   |
+|    9 | yash     |    50 | mizoram    | 878496711 | male   |
+|   10 | ram      |    89 | goa        | 878006711 | male   |
+|   11 | sandy    |    97 | pune       | 999999999 | female |
+|   12 | sagarika |    78 | pwc        | 888899999 | female |
+|   13 | nikki    |    99 | pune       | 888899777 | male   |
++------+----------+-------+------------+-----------+--------+
+13 rows in set (0.00 sec)
+
+1.
+mysql> select * from student where city='pune';
+
+2.
+mysql> select * from student where city='hyd' or city='pune';
+
+3.
+mysql> select * from student where city='hyd' and gender='female' union select * from student where city='pune' and gender='male' union select * from student where city='bglr';
+
+4.
+mysql> select * from student where city='hyd' and gender='male' and marks>70 union select * from student where city='hyd' and gender='female' and marks>50 union select * from student where city='pune' and gender='male';
+
+5.
+mysql> select * from student where marks between 50 and 80 and city in('bglr','hyd');
+
+6.
+mysql> select * from student where sname like 's%%a';
+
+7.
+mysql> select city, count(*) as people from student group by city;
+
+8.
+mysql> select city,avg(marks) as avg_score from student group by city order by avg_score desc limit 1;
+
+9.
+mysql> select city,max(marks) as max_score from student group by city;
+
+10.
+mysql> select * from student where city='hyd' order by marks desc limit 1;
+
+
+
+2nd database 
+
+mysql> create database retail;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use retail;
+Database changed
+mysql> create table salespeople(snum int not null primary key,sname varchar(30) not null,city varchar(30) not null,comm decimal(4,2) not null);
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into salespeople values(1001,'peel','London',0.12);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into salespeople values(1002,'serres','san jose',0.13);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into salespeople values(1003,'AxelRod','New York',0.10);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into salespeople values(1004,'Motika','London',0.11);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into salespeople values(1005,'Fran','London',0.26);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into salespeople values(1007,'Rifkin','Barcelona',0.15);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from salespeople;
++------+---------+-----------+------+
+| snum | sname   | city      | comm |
++------+---------+-----------+------+
+| 1001 | peel    | London    | 0.12 |
+| 1002 | serres  | san jose  | 0.13 |
+| 1003 | AxelRod | New York  | 0.10 |
+| 1004 | Motika  | London    | 0.11 |
+| 1005 | Fran    | London    | 0.26 |
+| 1007 | Rifkin  | Barcelona | 0.15 |
++------+---------+-----------+------+
+6 rows in set (0.00 sec)
+
+
+mysql> create table customer(cnum int not null primary key, cname varchar(30) not null, city varchar(30) not null, rating int not null, snum int not null, foreign key(snum) references salespeople(snum));
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> desc customer;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| cnum   | int(11)     | NO   | PRI | NULL    |       |
+| cname  | varchar(30) | NO   |     | NULL    |       |
+| city   | varchar(30) | NO   |     | NULL    |       |
+| rating | int(11)     | NO   |     | NULL    |       |
+| snum   | int(11)     | NO   | MUL | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into customer values(2001,'hoffman','London',100,1001);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into customer values(2002,'giovanni','Rome',200,1003);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer values(2003,'liu','san jose',200,1002);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into customer values(2004,'grass','Berlin',300,1002);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into customer values(2006,'clemens','London',100,1001);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into customer values(2008,'cisneros','san jose',300,1007);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into customer values(2007,'pereira','Rome',100,1004);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from customer;
++------+----------+----------+--------+------+
+| cnum | cname    | city     | rating | snum |
++------+----------+----------+--------+------+
+| 2001 | hoffman  | London   |    100 | 1001 |
+| 2002 | giovanni | Rome     |    200 | 1003 |
+| 2003 | liu      | san jose |    200 | 1002 |
+| 2004 | grass    | Berlin   |    300 | 1002 |
+| 2006 | clemens  | London   |    100 | 1001 |
+| 2007 | pereira  | Rome     |    100 | 1004 |
+| 2008 | cisneros | san jose |    300 | 1007 |
++------+----------+----------+--------+------+
+7 rows in set (0.00 sec)
+
+
+
+1.
+mysql> select s.sname as sales_person_name, count(cnum) as num_cust from salespeople s left join customer c on s.snum=c.snum group by s.snum,s.sname;
++-------------------+----------+
+| sales_person_name | num_cust |
++-------------------+----------+
+| peel              |        2 |
+| serres            |        2 |
+| AxelRod           |        1 |
+| Motika            |        1 |
+| Fran              |        0 |
+| Rifkin            |        1 |
++-------------------+----------+
+6 rows in set (0.00 sec)
+
+
+
+2.
+mysql> SELECT s.sname AS sales_person_name, AVG(c.rating) AS avg_rating
+    -> FROM salespeople s
+    -> LEFT JOIN customer c ON s.snum = c.snum
+    -> GROUP BY s.sname
+    -> ORDER BY avg_rating DESC
+    -> LIMIT 1;
++-------------------+------------+
+| sales_person_name | avg_rating |
++-------------------+------------+
+| Rifkin            |   300.0000 |
++-------------------+------------+
+1 row in set (0.00 sec)
+
+
+
+3.
+mysql> SELECT s.sname AS sales_person_name, max(c.rating) AS cust_rating
+    -> FROM salespeople s
+    -> LEFT JOIN customer c ON s.snum = c.snum
+    -> GROUP BY s.sname
+    -> ORDER BY cust_rating DESC
+    -> limit 2;
++-------------------+-------------+
+| sales_person_name | cust_rating |
++-------------------+-------------+
+| serres            |         300 |
+| Rifkin            |         300 |
++-------------------+-------------+
+2 rows in set (0.00 sec)
+
+
+4.
+mysql> SELECT s.sname AS sales_person_name, min(c.rating) AS min_rating
+    -> FROM salespeople s
+    -> JOIN customer c ON s.snum = c.snum
+    -> GROUP BY s.sname
+    -> ORDER BY min_rating limit 1;
++-------------------+------------+
+| sales_person_name | min_rating |
++-------------------+------------+
+| peel              |        100 |
++-------------------+------------+
+1 row in set (0.00 sec)
