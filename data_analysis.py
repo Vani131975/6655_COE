@@ -3,6 +3,7 @@ import pandas as pd
 df=pd.read_csv("C:\\Users\\vani1\\Desktop\\6655_COE\\Uber.csv",nrows=100)
 print(df)
 
+#pip install openpyxl
 data=pd.read_excel("C:\\Users\\vani1\\Desktop\\6655_COE\\Uber.xlsx",nrows=100)
 print(data)
 
