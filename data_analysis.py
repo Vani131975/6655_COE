@@ -22,4 +22,3 @@ df['START_DATE*'] = pd.to_datetime(df['START_DATE*'])
 df['END_DATE*'] = pd.to_datetime(df['END_DATE*'])
 
 print(df.dtypes)
-
